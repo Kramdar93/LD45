@@ -51,7 +51,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\scripts\Interaction.cs" />
+     <Compile Include="Assets\scripts\Inventory.cs" />
+     <Compile Include="Assets\scripts\Observation.cs" />
+     <Compile Include="Assets\scripts\PillarBehavior.cs" />
      <Compile Include="Assets\scripts\PlayerRBMover.cs" />
+     <Compile Include="Assets\scripts\Trapped.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
