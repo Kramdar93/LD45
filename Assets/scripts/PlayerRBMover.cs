@@ -9,6 +9,7 @@ public class PlayerRBMover : MonoBehaviour {
     private Inventory inv;
     private SpriteRenderer cursor;
     private tutorial tut;
+    private AudioManager am;
 
     private int DEFAULT_MASK, INTERACTABLE_MASK, OBSERVABLE_MASK;
 
@@ -54,6 +55,8 @@ public class PlayerRBMover : MonoBehaviour {
             Debug.Log("no tutorial found");
         }
 
+        am = GameObject.FindObjectOfType<AudioManager>();
+
 	}
 	
 	// Update is called once per frame
@@ -63,7 +66,7 @@ public class PlayerRBMover : MonoBehaviour {
         //fix garbo
         if (terrain != null)
         {
-            Debug.Log(terrain.SampleHeight(transform.position));
+            //Debug.Log(terrain.SampleHeight(transform.position));
             if (transform.position.y - (terrain.SampleHeight(transform.position)+1) < 0) // only works for player height of 1!
             {
                 transform.position = transform.position + Vector3.up * ((terrain.SampleHeight(transform.position) + 1) - transform.position.y);
@@ -127,6 +130,15 @@ public class PlayerRBMover : MonoBehaviour {
             //always try to lock cursor
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+        }
+
+        if (rb.velocity.magnitude > 0.1f && onGround)
+        {
+            am.ToggleFootsteps(true);
+        }
+        else
+        {
+            am.ToggleFootsteps(false);
         }
     }
 

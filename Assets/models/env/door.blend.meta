@@ -8,6 +8,10 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: Material__door_png
+    2100002: Material_001__door_png_001
+    2100004: None__door_png_001
+    2100006: Material__door_png_001
+    2100008: None__door_png
     2300000: //RootNode
     3300000: //RootNode
     4300000: Cube

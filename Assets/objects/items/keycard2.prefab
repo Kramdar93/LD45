@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 95845437926322912}
   - component: {fileID: 54506015456708868}
   - component: {fileID: 65369435612429124}
+  - component: {fileID: 114763766552584166}
   m_Layer: 0
   m_Name: keycard2
   m_TagString: Untagged
@@ -184,7 +185,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.15, z: 0.01}
+  m_Size: {x: 0.3, y: 0.25, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65656615805365312
 BoxCollider:
@@ -196,7 +197,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.15, z: 0.01}
+  m_Size: {x: 0.3, y: 0.25, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95845437926322912
 Animator:
@@ -228,6 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   line: {fileID: 0}
   id: 
+  destroyOnDone: 0
 --- !u!114 &114572788582025246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -240,3 +242,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickUp: 1
+--- !u!114 &114763766552584166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1570312720802238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5cca82399f385d44a660247e38d4fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: -1

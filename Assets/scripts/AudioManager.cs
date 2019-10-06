@@ -6,14 +6,16 @@ public class AudioManager : MonoBehaviour {
 
     private AudioSource thoughts;
     private AudioSource music;
-    private AudioSource dummySourcc;
+    private AudioSource feet;
+
+    public AudioSource dummySourcc;
 
 	// Use this for initialization
 	void Start () {
         PlayerRBMover playa = Component.FindObjectOfType<PlayerRBMover>();
         thoughts = playa.transform.Find("Main Camera").Find("thoughts").GetComponent<AudioSource>();
         music = playa.transform.Find("Main Camera").Find("music").GetComponent<AudioSource>();
-        dummySourcc = new AudioSource();
+        feet = playa.transform.Find("Main Camera").Find("feet").GetComponent<AudioSource>();
 
         //keep me
         DontDestroyOnLoad(transform.gameObject);
@@ -54,6 +56,18 @@ public class AudioManager : MonoBehaviour {
         music.clip = track;
         music.loop = loop;
         music.Play();
+    }
+
+    public void ToggleFootsteps(bool should)
+    {
+        if (should && !feet.isPlaying)
+        {
+            feet.Play();
+        }
+        else if(!should && feet.isPlaying)
+        {
+            feet.Stop();
+        }
     }
 }
 
