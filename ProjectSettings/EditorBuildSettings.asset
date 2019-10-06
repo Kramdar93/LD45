@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/scenes/mindblank.unity
+    guid: 16408a923247e8040b3c01c7a50d45cd
+  - enabled: 1
+    path: Assets/scenes/outskirts.unity
+    guid: 38529d50e72cd824f823565ecbd63fe1

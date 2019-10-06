@@ -6,7 +6,7 @@ public class Interaction : MonoBehaviour {
 
     public bool pickUp = false;
 
-    public void doAction()
+    public virtual void doAction()
     {
 
     }

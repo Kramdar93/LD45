@@ -8,6 +8,7 @@ public class PlayerRBMover : MonoBehaviour {
     private Camera cam;
     private Inventory inv;
     private SpriteRenderer cursor;
+    private tutorial tut;
 
     private int DEFAULT_MASK, INTERACTABLE_MASK, OBSERVABLE_MASK;
 
@@ -20,6 +21,18 @@ public class PlayerRBMover : MonoBehaviour {
     public float JUMPNESS = 5;
     public float INTERACTION_DIST = 5;
     public float OBSERVATION_DIST = 5;
+
+    private Terrain terrain;
+    public void SetTerrain()
+    {
+        terrain = GameObject.FindObjectOfType<Terrain>();
+    }
+
+    void Awake()
+    {
+        //keep whole hierarchy of player.
+        DontDestroyOnLoad(transform.gameObject);
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -35,19 +48,27 @@ public class PlayerRBMover : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        Debug.Log("masks:");
-        Debug.Log(DEFAULT_MASK);
-        Debug.Log(INTERACTABLE_MASK);
-        Debug.Log(OBSERVABLE_MASK);
+        tut = Component.FindObjectOfType<tutorial>();
+        if (tut == null)
+        {
+            Debug.Log("no tutorial found");
+        }
 
-        //keep whole hierarchy of player.
-        DontDestroyOnLoad(transform.gameObject);
 	}
 	
 	// Update is called once per frame
 	void Update () {
         handleMove();
         handleInteract();
+        //fix garbo
+        if (terrain != null)
+        {
+            Debug.Log(terrain.SampleHeight(transform.position));
+            if (transform.position.y - (terrain.SampleHeight(transform.position)+1) < 0) // only works for player height of 1!
+            {
+                transform.position = transform.position + Vector3.up * ((terrain.SampleHeight(transform.position) + 1) - transform.position.y);
+            }
+        }
 	}
 
     private void handleMove()
@@ -57,25 +78,28 @@ public class PlayerRBMover : MonoBehaviour {
         float lookX;
         float lookY;
         bool onGround = Physics.Raycast(transform.position, Vector3.down, 1.25f, DEFAULT_MASK);
+        bool sprinting = Input.GetButton("Sprint");
 
         moveX = Input.GetAxis("MoveX");
         moveY = Input.GetAxis("MoveY");
-        lookX = Input.GetAxis("LookX");
-        lookY = -Input.GetAxis("LookY");
+        lookX = Input.GetAxis("LookX") + 3 * Input.GetAxis("JoyLookX");
+        lookY = -Input.GetAxis("LookY") + -1.5f * Input.GetAxis("JoyLookY");
+        float speed = sprinting ? SPEED * 2 : SPEED;
+
 
         if (onGround)
         {
             float oldUp = rb.velocity.y;
-            rb.velocity = ((transform.forward * moveY) + (transform.right * moveX)).normalized * SPEED + (Vector3.up * oldUp);
+            rb.velocity = ((transform.forward * moveY) + (transform.right * moveX)).normalized * speed + (Vector3.up * oldUp);
         }
         else //midair controls
         {
             Vector3 result = Vector3.zero;
-            if (!((Vector3.Dot(rb.velocity, transform.right) > SPEED && moveX > 0) || (Vector3.Dot(rb.velocity, transform.right) < -SPEED && moveX < 0)))
+            if (!((Vector3.Dot(rb.velocity, transform.right) > speed && moveX > 0) || (Vector3.Dot(rb.velocity, transform.right) < -speed && moveX < 0)))
             {
                 result += cam.transform.right.normalized * moveX;
             }
-            if (!((Vector3.Dot(rb.velocity, transform.forward) > SPEED && moveY > 0) || (Vector3.Dot(rb.velocity, transform.forward) < -SPEED && moveY < 0)))
+            if (!((Vector3.Dot(rb.velocity, transform.forward) > speed && moveY > 0) || (Vector3.Dot(rb.velocity, transform.forward) < -speed && moveY < 0)))
             {
                 result += cam.transform.forward.normalized * moveY;
             }
@@ -137,8 +161,17 @@ public class PlayerRBMover : MonoBehaviour {
                 cursor.sprite = cursorSee;
                 if (obsPressed)
                 {
+                    Debug.Log("observing...");
                     obs.Observe();
+                    if (tut != null)
+                    {
+                        tut.checkedWorld();
+                    }
                 }
+            }
+            else
+            {
+                didHitObserve = false;
             }
         }
         if (didHitInteract)
@@ -159,6 +192,10 @@ public class PlayerRBMover : MonoBehaviour {
                     }
                 }
             }
+            else
+            {
+                didHitInteract = false;
+            }
         }
         if(!didHitObserve && !didHitInteract)
         {
@@ -167,13 +204,24 @@ public class PlayerRBMover : MonoBehaviour {
 
         //switch objects
         float scroll = Input.GetAxis("Scroll");
-        if (scroll > 0.01f)
+        bool nextButton = Input.GetButtonDown("Next");
+        bool prevButton = Input.GetButtonDown("Prev");
+        if (scroll > 0.01f || nextButton)
         {
             inv.selectNext();
+            if (tut != null)
+            {
+                tut.checkedNote();
+            }
         }
-        else if (scroll < -0.01f)
+        else if (scroll < -0.01f || prevButton)
         {
             inv.selectPrev();
+            if (tut != null)
+            {
+                tut.checkedNote();
+            }
         }
     }
+
 }

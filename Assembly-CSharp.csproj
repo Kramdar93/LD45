@@ -53,8 +53,12 @@
   <ItemGroup>
      <Compile Include="Assets\scripts\AudioManager.cs" />
      <Compile Include="Assets\scripts\Interaction.cs" />
+     <Compile Include="Assets\scripts\interactions\leavePurgatory.cs" />
      <Compile Include="Assets\scripts\Inventory.cs" />
+     <Compile Include="Assets\scripts\levels\outskirts.cs" />
+     <Compile Include="Assets\scripts\levels\tutorial.cs" />
      <Compile Include="Assets\scripts\Observation.cs" />
+     <Compile Include="Assets\scripts\observations\purgatory.cs" />
      <Compile Include="Assets\scripts\PillarBehavior.cs" />
      <Compile Include="Assets\scripts\PlayerRBMover.cs" />
      <Compile Include="Assets\scripts\Speen.cs" />

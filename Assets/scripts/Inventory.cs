@@ -8,6 +8,7 @@ public class Inventory : MonoBehaviour {
     private GameObject holdPoint;
     private int currentIndex = 0;
     private int DEFAULT_LAYER, UI_LAYER;
+    private Rigidbody myrb;
         
     private List<GameObject> stuff;
 
@@ -16,6 +17,7 @@ public class Inventory : MonoBehaviour {
 	// Use this for initialization
     void Start()
     {
+        myrb = transform.GetComponent<Rigidbody>();
         cam = transform.GetComponentInChildren<Camera>();
         holdPoint = transform.Find("Main Camera").Find("inventoryPoint").gameObject;
         stuff = new List<GameObject>();
@@ -27,7 +29,10 @@ public class Inventory : MonoBehaviour {
 
         //make sure to add all initially.
         foreach(GameObject go in initStuff){
-            addObject(go);
+            if (go != null)
+            {
+                addObject(go);
+            }
         }
         selectNth(0);
     }
@@ -39,6 +44,8 @@ public class Inventory : MonoBehaviour {
 
     public void addObject(GameObject go)
     {
+        //make sure it doesn't get cleaned
+        go.tag = "nvm";
         Rigidbody otherRB = go.GetComponent<Rigidbody>();
         if (otherRB != null)
         {
@@ -99,12 +106,15 @@ public class Inventory : MonoBehaviour {
             if (rb != null)
             {
                 rb.isKinematic = false;
+                rb.velocity = myrb.velocity;
             }
             stuff.RemoveAt(currentIndex);
             if (currentIndex >= stuff.Count)
             {
                 currentIndex = 0;
             }
+            //mark it as cleanable
+            current.tag = "cleanMe";
         }
     }
 

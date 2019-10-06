@@ -12,10 +12,15 @@ public class Observation : MonoBehaviour {
 
     void Start()
     {
+        myInit();
+    }
+
+    public void myInit()
+    {
         am = Component.FindObjectOfType<AudioManager>();
     }
 
-    public void Observe()
+    public virtual void Observe()
     {
         if (line != null)
         {
