@@ -29,8 +29,8 @@ public class PlayerRBMover : MonoBehaviour {
         cursor = transform.Find("Main Camera").Find("crosshair").GetComponent<SpriteRenderer>();
 
         DEFAULT_MASK = LayerMask.GetMask("Default");
-        INTERACTABLE_MASK = LayerMask.GetMask("Interactable");
-        OBSERVABLE_MASK = LayerMask.GetMask("Observable");
+        INTERACTABLE_MASK = LayerMask.GetMask("Default","Interactable");
+        OBSERVABLE_MASK = LayerMask.GetMask("Default", "Observable");
         //relock in case
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -39,6 +39,9 @@ public class PlayerRBMover : MonoBehaviour {
         Debug.Log(DEFAULT_MASK);
         Debug.Log(INTERACTABLE_MASK);
         Debug.Log(OBSERVABLE_MASK);
+
+        //keep whole hierarchy of player.
+        DontDestroyOnLoad(transform.gameObject);
 	}
 	
 	// Update is called once per frame
@@ -126,31 +129,38 @@ public class PlayerRBMover : MonoBehaviour {
         bool didHitInteract = Physics.Raycast(cam.transform.position, cam.transform.forward, out hitInfoInteract, INTERACTION_DIST, INTERACTABLE_MASK);
         bool didHitObserve = Physics.Raycast(cam.transform.position, cam.transform.forward, out hitInfoObserve, OBSERVATION_DIST, OBSERVABLE_MASK);
         //Debug.DrawRay(cam.transform.position, cam.transform.forward);
-        if (didHitInteract)
+        if (didHitObserve)
         {
-            cursor.sprite = cursorGrab;
-            if (intPressed)
+            Observation obs = hitInfoObserve.collider.GetComponent<Observation>();
+            if (obs != null)
             {
-                Interaction i = hitInfoInteract.collider.GetComponent<Interaction>();
-                if (i == null)
+                cursor.sprite = cursorSee;
+                if (obsPressed)
                 {
-                    Debug.Log("No interaction found!");
-                }
-                else if(i.pickUp)
-                {
-                    inv.addObject(hitInfoInteract.collider.transform.parent.gameObject); //interactions always children of objects.
-                }
-                else
-                {
-                    i.doAction();
+                    obs.Observe();
                 }
             }
         }
-        else if (didHitObserve)
+        if (didHitInteract)
         {
-            cursor.sprite = cursorSee;
+            Interaction i = hitInfoInteract.collider.GetComponent<Interaction>();
+            if (i != null)
+            {
+                cursor.sprite = cursorGrab;
+                if (intPressed)
+                {
+                    if (i.pickUp)
+                    {
+                        inv.addObject(hitInfoInteract.collider.transform.parent.gameObject); //interactions always children of objects.
+                    }
+                    else
+                    {
+                        i.doAction();
+                    }
+                }
+            }
         }
-        else
+        if(!didHitObserve && !didHitInteract)
         {
             cursor.sprite = cursorNone;
         }

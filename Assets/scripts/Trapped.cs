@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Trapped : MonoBehaviour {
 
+    public bool isActive = true;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -12,21 +14,24 @@ public class Trapped : MonoBehaviour {
 	
 	void FixedUpdate () {
         //Debug.Log(transform.position);
-        if (transform.position.x > 20)
+        if (isActive)
         {
-            transform.position = transform.position + new Vector3(-40,0,0);
-        }
-        if (transform.position.z > 20)
-        {
-            transform.position = transform.position + new Vector3(0, 0, -40);
-        }
-        if (transform.position.x < -20)
-        {
-            transform.position = transform.position + new Vector3(40, 0, 0);
-        }
-        if (transform.position.z < -20)
-        {
-            transform.position = transform.position + new Vector3(0, 0, 40);
+            if (transform.position.x > 20)
+            {
+                transform.position = transform.position + new Vector3(-40, 0, 0);
+            }
+            if (transform.position.z > 20)
+            {
+                transform.position = transform.position + new Vector3(0, 0, -40);
+            }
+            if (transform.position.x < -20)
+            {
+                transform.position = transform.position + new Vector3(40, 0, 0);
+            }
+            if (transform.position.z < -20)
+            {
+                transform.position = transform.position + new Vector3(0, 0, 40);
+            }
         }
 	}
 }
