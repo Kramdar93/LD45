@@ -7,6 +7,7 @@ TagManager:
   - cleanMe
   - nvm
   - spawn
+  - final
   layers:
   - Default
   - TransparentFX

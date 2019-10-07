@@ -15,6 +15,7 @@ public class levelDoor : Interaction {
     void Start()
     {
         am = GameObject.FindObjectOfType<AudioManager>();
+        player = GameObject.FindObjectOfType<PlayerRBMover>();
     }
 
 	public override void doAction()
@@ -29,6 +30,7 @@ public class levelDoor : Interaction {
         }
         else if (nextSceen != null && !nextSceen.Equals(""))
         {
+            Debug.Log("loading");
             UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(nextSceen);
         }
     }

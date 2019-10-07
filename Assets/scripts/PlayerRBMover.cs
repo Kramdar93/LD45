@@ -72,6 +72,11 @@ public class PlayerRBMover : MonoBehaviour {
                 transform.position = transform.position + Vector3.up * ((terrain.SampleHeight(transform.position) + 1) - transform.position.y);
             }
         }
+        //exit
+        if (Input.GetButtonDown("Cancel"))
+        {
+            Application.Quit();
+        }
 	}
 
     private void handleMove()

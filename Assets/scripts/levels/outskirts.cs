@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class outskirts : MonoBehaviour {
 
+    public bool playMusic = false;
+
 	// Use this for initialization
 	void Start () {
         Debug.Log("initializing");
@@ -13,6 +15,10 @@ public class outskirts : MonoBehaviour {
         GameObject[] cleanup = GameObject.FindGameObjectsWithTag("cleanMe");
         foreach(GameObject g in cleanup){
             Destroy(g);
+        }
+        if (playMusic)
+        {
+            //GameObject.FindObjectOfType<AudioManager>().AdvanceTrack(false);
         }
 	}
 	

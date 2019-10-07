@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scenes/outskirts.unity
     guid: 38529d50e72cd824f823565ecbd63fe1
+  - enabled: 1
+    path: Assets/scenes/topOfTheWorld.unity
+    guid: eff9d42dd5e585243966873e103bc9d2

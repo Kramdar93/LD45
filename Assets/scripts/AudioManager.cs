@@ -10,6 +10,12 @@ public class AudioManager : MonoBehaviour {
 
     public AudioSource dummySourcc;
 
+    public AudioClip[] tracks;
+
+    private int trackNum = -1;
+    private int currentTrack = -1;
+    private bool nextLoop;
+
 	// Use this for initialization
 	void Start () {
         PlayerRBMover playa = Component.FindObjectOfType<PlayerRBMover>();
@@ -23,7 +29,25 @@ public class AudioManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (currentTrack != trackNum && trackNum < tracks.Length-1)
+        {
+            music.loop = false;
+            if (!music.isPlaying)
+            {
+                currentTrack = trackNum;
+                music.clip = tracks[currentTrack];
+                music.loop = nextLoop;
+                music.Play();
+            }
+        }
+        else if (!nextLoop && !music.isPlaying && currentTrack >= 0 && trackNum < tracks.Length - 1)
+        {
+            trackNum += 1;
+            currentTrack += 1;
+            music.clip = tracks[currentTrack];
+            music.loop = nextLoop;
+            music.Play();
+        } 
 	}
 
     public void PlayAt(AudioClip sfx, Vector3 position)
@@ -68,6 +92,14 @@ public class AudioManager : MonoBehaviour {
         {
             feet.Stop();
         }
+    }
+
+
+    public void AdvanceTrack(bool shouldLoop)
+    {
+        trackNum += 1;
+        music.loop = false;
+        nextLoop = shouldLoop;
     }
 }
 

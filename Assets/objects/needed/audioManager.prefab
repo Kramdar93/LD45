@@ -53,3 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dummySourcc: {fileID: 82504874869955612, guid: 9b7b6a91f0f239d41ab7527ba6a2cdcb,
     type: 2}
+  tracks:
+  - {fileID: 8300000, guid: a63691c8dc2ebf047bbbd3c2b835835f, type: 3}
+  - {fileID: 8300000, guid: f8e9d2b1020aa054c857c79d143343e7, type: 3}
+  - {fileID: 8300000, guid: 1d8aae737c781d04390b9041af640294, type: 3}

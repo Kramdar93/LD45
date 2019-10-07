@@ -5906,6 +5906,11 @@ Prefab:
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114924030056300892, guid: c44cac93dc7b6ec4f9592a38042e03fc,
+        type: 2}
+      propertyPath: line
+      value: 
+      objectReference: {fileID: 8300000, guid: dbb064b83b0267b48b55df79475041eb, type: 3}
     m_RemovedComponents:
     - {fileID: 114376058589752208, guid: c44cac93dc7b6ec4f9592a38042e03fc, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c44cac93dc7b6ec4f9592a38042e03fc, type: 2}
@@ -9017,7 +9022,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100002, guid: 1731beefb6de91040b3677cf1a5168d1, type: 3}
+  - {fileID: 2100000, guid: 7fffd73d5b66289498b23a438b7d8ff7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13131,6 +13136,11 @@ Prefab:
       propertyPath: initStuff.Array.data[0]
       value: 
       objectReference: {fileID: 486859435}
+    - target: {fileID: 114063459704111624, guid: 1232ab7d092803d47a67f7eeb8f90cd0,
+        type: 2}
+      propertyPath: isActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1232ab7d092803d47a67f7eeb8f90cd0, type: 2}
   m_IsPrefabParent: 0
